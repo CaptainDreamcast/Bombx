@@ -1,0 +1,34 @@
+Palettes:
+	dc.w	0x0000
+	dc.w	$006
+	dc.w	$f10
+	dc.w	$07f
+	dc.w	$ccc
+	dc.w	$bbf
+	dc.w	$fff
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+	dc.w	$000
+
+	dc.w 0x0000
+	dc.w 0x0001
+	dc.w 0x0001
+	dc.w 0x0002
+	dc.w 0x0014
+	dc.w 0x0016
+	dc.w 0x0016
+	dc.w 0x0128
+	dc.w 0x0129
+	dc.w 0x024e
+	dc.w 0x079f
+	dc.w 0x0cdf
+	dc.w 0x0fff
+	dc.w 0x0f5f
+	dc.w 0x05ff
+	dc.w 0x0fff
