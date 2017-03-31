@@ -19,7 +19,7 @@ __main:
 	
 	jsr SetAutoIncrement2     ; Set autoincrement to 2 bytes
 
-	move.l #GameScreenFunction, gScreenPointer
+	move.l #LogoScreen, gScreenPointer
 	
 	@SuperLoop:
 	
