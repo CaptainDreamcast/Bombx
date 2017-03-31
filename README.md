@@ -1,8 +1,12 @@
 # Bombx
 Bombx. Puzzle game for Sega Megadrive.  
   
-Think outside the box and have a blast!
-
+Think outside the box and have a blast!  
+  
+The playable ROM is placed in the appropriately named `ROM (you want this)` directory.  
+For use with Mega Drive and Genesis systems.  
+Use an Everdrive or emulators like Kega Fusion to play the ROM.  
+  
 ### Tools used:
 [__BMP2Tile__](http://gendev.spritesmind.net/page-b2t)  
 [__Megadrive Map Maker__](http://gendev.spritesmind.net/page-mmm.html)  
