@@ -1,18 +1,52 @@
 ; Taken in part from https://bigevilcorporation.co.uk
 ; So buy Tanglewood, will ya
 
-; Memory
-vblank_counter		equ 0x00FF0000
 
-; Globals:
-vdp_control				equ 0x00C00004
-vdp_data				equ 0x00C00000
+column_amount		equ 20
+row_amount 			equ 14
+box_amount			equ 16
+bombx_explosion_ticks equ 0x20
 
-vdp_write_palettes		equ 0xF0000000
-vdp_write_tiles			equ 0x40000000
-vdp_write_plane_a		equ 0x40000003
-vdp_write_sprite_table	equ 0x60000003
 
+GameData:
+gTimer 					equ (gLibrarySentinel) ; w
+gTimerTicks 			equ (gTimer+wsize) ; w
+gTimerBuffer			equ (gTimerTicks+wsize) ; 8 bytes
+gIsReloadingLevel		equ (gTimerBuffer+(bsize*8)) ; w
+gDebugFlag 				equ (gIsReloadingLevel+wsize)  ; w
+gGameSentinel 			equ (gDebugFlag+wsize) 
+
+LevelData:
+gLevelMapAddress		equ (gGameSentinel) ; l
+gHolesLeft				equ (gLevelMapAddress+lsize) ; w
+gScreenStatus			equ (gHolesLeft+wsize) ; w
+gLevelSentinel			equ (gScreenStatus+wsize) ; sentinel value
+
+PlayerData:
+gPlayerX				equ (gLevelSentinel) ; w
+gPlayerY				equ (gPlayerX+wsize) ; w
+gPlayerSpriteSettings 	equ (gPlayerY+wsize) ; b
+gPlayerSpriteTileID 	equ (gPlayerSpriteSettings+bsize) ; b
+gPlayerMovingTicks		equ (gPlayerSpriteTileID+bsize) ; w
+gPlayerDX				equ (gPlayerMovingTicks+wsize) ; w
+gPlayerDY				equ (gPlayerDX+wsize) ; w
+gDummy					equ (gPlayerDY+wsize) ; w
+gPlayerFrameAddress		equ (gDummy+wsize) ; l
+gPlayerFrameAmount 		equ (gPlayerFrameAddress+lsize) ; w
+gPlayerFrame            equ (gPlayerFrameAmount+wsize) ; w
+gPlayerExplodingTicks   equ (gPlayerFrame+wsize) ; w
+gPlayerSentinel 		equ (gPlayerExplodingTicks+wsize) ; sentinel value
+
+BombxData:
+gBombxMap				equ (gPlayerSentinel) ; 20 x 14 x w
+gBombxFinishedMap		equ (gBombxMap+(wsize*column_amount*row_amount)) ;20 x 14 x w ; TODO: fix this into sth better
+gBombxPositions			equ (gBombxFinishedMap+(wsize*column_amount*row_amount)) ; 16 x 2 x w
+gBombxAmount			equ (gBombxPositions+(wsize*2*box_amount))  ; w
+gActiveBombxAmount		equ (gBombxAmount+wsize) ; w
+gMovingBombxID			equ (gActiveBombxAmount+wsize) ; w
+gBombxState 			equ (gMovingBombxID+wsize) ; w*box_amount
+gBombxNumber			equ (gBombxState+(wsize*box_amount)) ; w*box_amount
+gBombxAnimationTicks 	equ (gBombxNumber+(wsize*box_amount)) ; w*box_amount ; used as w until necessary
 
 ASCIIStart: equ 0x20 ; First ASCII code in table
 ASCIIMap:
@@ -74,10 +108,8 @@ ASCIIMap:
 	dc.b 0x17   ; W
 	dc.b 0x18   ; X
 	dc.b 0x19   ; Y
-	dc.b 0x1A   ; Z (ASCII code 0x5A)
-
+	dc.b 0x1A   ; Z (ASCII code 0x5A)	
 	
 	
-	
-  ; Include font asset
   include 'assets\assets.asm'
+  include 'assets\levels.asm'
