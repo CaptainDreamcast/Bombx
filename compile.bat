@@ -1,0 +1,1 @@
+..\ASM\ASM68k.exe /p bombx.asm,bombx.bin
