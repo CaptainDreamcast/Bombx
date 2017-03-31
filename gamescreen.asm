@@ -102,13 +102,13 @@ GameScreenFunction:
 
 	 jsr ReadPad1 
 
-	btst   #pad_button_start, d1 
+	btst   #pad_button_start, d0 
 	bne    @NoAbort 
-	btst   #pad_button_a, d1 
+	btst   #pad_button_a, d0 
 	bne    @NoAbort 
-	btst   #pad_button_b, d1 
+	btst   #pad_button_b, d0 
 	bne    @NoAbort 
-	btst   #pad_button_c, d1 
+	btst   #pad_button_c, d0 
 	bne    @NoAbort 
 	move.l #TitleScreen, gScreenPointer
 	jmp 	@End
